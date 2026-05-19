@@ -1,3 +1,3 @@
 # fishprints
 
-![crabs](/fishprints/crabs/Crab1/Albino Rock Crab_27434.png)
+[![crabs sample](fishprints/crabs/Crab1/Albino%20Rock%20Crab_27434.png)](fishprints/crabs)
