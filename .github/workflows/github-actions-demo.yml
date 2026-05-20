@@ -16,3 +16,14 @@ jobs:
         uses: actions/checkout@v6
       - id: convey
         run: echo "modified=${{ matrix.CommitsIn.id }}" >> "$GITHUB_OUTPUT"
+
+  RunOnMods:
+    needs: SelectCommits
+    strategy:
+      matrix: 
+        ModifiedIn: ${{ needs.SelectCommits.outputs.ModifiedOut }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: pleaseplasepalse
+        run: echo ${{ matrix.ModifiedIn }}
+        
