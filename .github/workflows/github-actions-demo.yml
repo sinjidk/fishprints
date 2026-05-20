@@ -5,7 +5,7 @@ jobs:
   identify_changes:
     runs-on: ubuntu-latest
     outputs:
-      files: ${{ steps.toJson.outputs.arr }}
+      files: ${{ steps.toJson.outputs.json }}
     steps:
       - name: this works right?
         run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -17,12 +17,14 @@ jobs:
         run: echo "changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
       - id: toJson
         run: |
-          arr="["\"
+          arr='["'
           for file in ${{ steps.changes.outputs.changed_files }}; do
             arr+="$file\",\""
           done
           arr=${arr%,\"}
-          echo "arr+=\"]" >> $GITHUB_OUTPUT
+          arr+='"]'
+          echo "json=$arr" >> $GITHUB_OUTPUT
+          
       - run: echo "${{ steps.toJson.outputs.arr }} was output?"
 
   build_changes:
