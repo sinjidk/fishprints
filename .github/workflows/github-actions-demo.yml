@@ -3,40 +3,16 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: push
 jobs:
   SelectCommits:
-    strategy:
-      matrix:
-        CommitsIn: ${{ github.event.commits }}
     runs-on: ubuntu-latest
-    outputs:
-      ModifiedOut: ${{ steps.convey.outputs.modified }}
     steps:
       - name: this works right?
         run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - name: Check out repository code
         uses: actions/checkout@v6
-      - name: array
-        id: arr
+      - id: changes
+        run: echo "changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
+      - name: List changed files
         run: |
-          arr=()
-          for i in "$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})"
-          do
-            echo $i
-            arr+=($i)
+          for file in ${{ steps.changes.outputs.changed_files }}; do
+              echo "$file was changed"
           done
-          echo ::set-output name=arr::${arr[@]}
-        
-      - id: convey
-        run: |
-          declare -a modified
-          echo "modified=${{ matrix.CommitsIn.id }}" >> "$GITHUB_OUTPUT"
-
-  RunOnMods:
-    needs: SelectCommits
-    strategy:
-      matrix: 
-        ModifiedIn: ${{fromJSON(needs.SelectCommits.outputs.ModifiedOut)}}
-    runs-on: ubuntu-latest
-    steps:
-      - name: pleaseplasepalse
-        run: echo ${{ matrix.ModifiedIn }}
-        
