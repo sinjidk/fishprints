@@ -24,7 +24,6 @@ jobs:
           arr=${arr%,\"}
           arr+="]"
           echo $arr
-          echo "$(fromJSON(arr))"
 
   build_changes:
     needs: identify_changes
