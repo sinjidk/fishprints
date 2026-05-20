@@ -22,7 +22,7 @@ jobs:
           do
             arr+=($i)
           done
-          echo arr
+          echo $arr
       - id: convey
         run: |
           declare -a modified
