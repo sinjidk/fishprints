@@ -24,8 +24,6 @@ jobs:
           arr=${arr%,\"}
           arr+=']'
           echo "json=$arr" >> $GITHUB_OUTPUT
-          
-      - run: echo "${{ steps.toJson.outputs.json }} was output?"
 
   build_changes:
     needs: identify_changes
