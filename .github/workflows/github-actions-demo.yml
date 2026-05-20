@@ -23,6 +23,7 @@ jobs:
             echo $i
             arr+=($i)
           done
+          echo ::set-output name=arr::${arr[@]}
         
       - id: convey
         run: |
