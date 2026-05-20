@@ -19,13 +19,13 @@ jobs:
         run: |
           arr="["
           for file in ${{ steps.changes.outputs.changed_files }}; do
-            echo "${toJSON($file)} was changed"
+            echo "$(toJSON($file)) was changed"
             arr+="$file,"
           done
           arr=${arr%,}
           arr+="]"
           echo $arr
-          echo ${fromJSON($arr)}
+          echo $(fromJSON($arr))
 
   build_changes:
     needs: identify_changes
