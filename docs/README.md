@@ -1,3 +1,3 @@
-# fishprints
+![crabs](Crab2/Helmet Crab_4880.png)
+![trouts](Trout3/Steelhead Trout_20049.png)
 
-[![crabs sample](crabs/Crab1/Albino%20Rock%20Crab_27434.png)](crabs)
