@@ -1,5 +1,9 @@
 name: Generate Markdown
-on: push
+on: 
+  workflow_dispatch: 
+  push:
+    branches:
+      - main
 jobs:
   Initalize-References:
     runs-on: ubuntu-latest
@@ -15,8 +19,10 @@ jobs:
               echo "${refpath} does not exist"
               refimage="$(find $dir -mindepth 1 -type f -name '*.png' -print -quit)"
               fname="${refimage#$dir/}"
-              echo "${fname}" > "${refpath}"
-              echo "${refpath} generated with ${fname}"
+              dname="${dir##*/}"
+              text="$dname/$fname"
+              echo "${text}" > "${refpath}"
+              echo "${refpath} generated with ${text}"
             fi
           done
       - name: Commit changes
@@ -65,7 +71,7 @@ jobs:
                 fi
                 fname="${file#$dir/}"
                 dname="${fname%/reference}"
-                text="![${dname}]($(cat $file | sed -e 's/ /%20/g'))${NL}"
+                text="![${dname}]($(cat $file))${NL}"
                 md+="${text}"
                 echo "Added ${text}"
               done <<< "${refs}"
