@@ -10,6 +10,10 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v6
       - name: commits
-        run: echo ${{ github.event.commits }}
+        run: |
+          for commit in ${{ github.event.commits }} do
+            echo commit.id
+          done
+          
       - name: Get list of changes
         run: echo ${{ github.event.commits.modified }}
