@@ -24,8 +24,13 @@ jobs:
           git config --global user.email "170571194+sinjidk@users.noreply.github.com"
           git config --global user.name "sinjidk"
           git add .
-          git commit -m "Reference initialization"
-          git push
+          echo "$(git status)"
+          if [ ! -z "$(git status)" ]; then
+            git commit -m "Reference initialization"
+            git push
+          else
+            echo "No new reference files"
+          fi
           
   Generate-Markdown:
     needs: Initalize-References
