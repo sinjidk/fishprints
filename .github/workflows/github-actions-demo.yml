@@ -21,7 +21,7 @@ jobs:
           for file in ${{ steps.changes.outputs.changed_files }}; do
             arr+="$file\",\""
           done
-          arr=${arr%,"}
+          arr=${arr%,\"}
           arr+="]"
           echo $arr
 
