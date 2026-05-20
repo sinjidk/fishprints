@@ -9,7 +9,7 @@ jobs:
         run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - name: Check out repository code
         uses: actions/checkout@v6
-      - name: Event sender
-        run: echo ${${{ github.event.sender.id }}}
+      - name: commits
+        run: echo ${{ github.event.commits }}
       - name: Get list of changes
         run: echo ${{ github.event.commits.modified }}
