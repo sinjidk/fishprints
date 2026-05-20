@@ -5,12 +5,11 @@ jobs:
   Explore-GitHub-Actions:
     strategy:
       matrix:
-        foo: ${{ github.event.commits }}
+        foo: ${{ github.event.commits.modified }}
     runs-on: ubuntu-latest
     steps:
       - name: this works right?
         run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - name: Check out repository code
         uses: actions/checkout@v6
-      - run: echo $foo.id
-      - run: echo ${{ matrix.foo.id }}
+      - run: echo ${{ matrix.foo }}
