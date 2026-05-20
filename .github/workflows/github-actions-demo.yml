@@ -10,6 +10,6 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v6
       - name: Event sender
-        run: echo ${${{ github.event.sender }}}
+        run: echo ${${{ github.event.sender.id }}}
       - name: Get list of changes
         run: echo ${{ github.event.commits.modified }}
