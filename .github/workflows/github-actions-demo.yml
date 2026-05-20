@@ -23,7 +23,7 @@ jobs:
           done
           arr=${arr%,\"}
           arr+="]"
-          echo $arr
+          echo $arr >> $GITHUB_OUTPUT
 
   build_changes:
     needs: identify_changes
