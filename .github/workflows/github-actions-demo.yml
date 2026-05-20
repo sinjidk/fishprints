@@ -9,6 +9,8 @@ jobs:
         run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - name: Check out repository code
         uses: actions/checkout@v6
+        with:
+         fetch-depth: 0
       - id: changes
         run: echo "changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
       - name: List changed files
