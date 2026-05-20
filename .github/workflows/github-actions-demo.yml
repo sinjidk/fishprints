@@ -5,5 +5,9 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v6
+      - name: Committ id
+        run: echo "${{ github.event.commits.id }}"
       - name: Get list of changes
         run: echo "${{ github.event.commits.modified }}"
