@@ -3,12 +3,13 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: push
 jobs:
   Explore-GitHub-Actions:
+    strategy:
+      matrix:
+        foo: ${{ github.event.commits }}
     runs-on: ubuntu-latest
     steps:
       - name: this works right?
         run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - name: Check out repository code
         uses: actions/checkout@v6
-      - run: echo ${${{ github.event.commits }}[0]}
-      - name: Get list of changes
-        run: echo ${{ github.event.commits.modified }}
+      - run: echo foo.id
