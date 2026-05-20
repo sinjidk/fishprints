@@ -21,7 +21,7 @@ jobs:
     needs: SelectCommits
     strategy:
       matrix: 
-        ModifiedIn: ${{ needs.SelectCommits.outputs.ModifiedOut }}
+        ModifiedIn: ${{fromJSON(needs.SelectCommits.outputs.ModifiedOut)}}
     runs-on: ubuntu-latest
     steps:
       - name: pleaseplasepalse
