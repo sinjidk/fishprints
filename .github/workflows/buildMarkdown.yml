@@ -36,7 +36,7 @@ jobs:
           git add .
           if [ ! -z "$(git status -s)" ]; then
             git commit -m "Reference initialization"
-            git push
+            git push origin ${{ github.ref_name }}
           else
             echo "No new reference files"
           fi
@@ -90,7 +90,7 @@ jobs:
           git add .
           if [ ! -z "$(git status -s)" ]; then
             git commit -m "Reference initialization"
-            git push
+            git push origin ${{ github.ref_name }}
           else
             echo "No markdown changes"
           fi
