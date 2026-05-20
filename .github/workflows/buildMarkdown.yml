@@ -8,6 +8,7 @@ jobs:
         uses: actions/checkout@v6
       - name: Perform initialization
         run: |
+          cd docs
           find . -mindepth 1 -type d | while read dir; do
             refpath="${dir}/reference"
             if [ ! -f "${refpath}" ]; then
