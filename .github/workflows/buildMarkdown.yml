@@ -19,3 +19,8 @@ jobs:
               echo "${refpath} generated with ${fname}"
             fi
           done
+      - name: Commit changes
+        run: |
+          git add .
+          git commit -m "Reference initialization"
+          git push
