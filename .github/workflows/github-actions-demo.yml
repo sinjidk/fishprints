@@ -19,7 +19,8 @@ jobs:
         run: |
           arr="["
           for file in ${{ steps.changes.outputs.changed_files }}; do
-            echo "$(toJSON(file)) was changed"
+            json=toJSON($file)
+            echo "$json was changed"
             arr+="$file,"
           done
           arr=${arr%,}
