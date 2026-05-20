@@ -11,6 +11,8 @@ on:
 jobs:
   Initalize-References:
     runs-on: ubuntu-latest
+    outputs:
+      hash: ${{ steps.commitStep.outputs.hash }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v6
@@ -30,6 +32,7 @@ jobs:
             fi
           done
       - name: Commit changes
+        id: commitStep
         run: |  
           git config --global user.email "170571194+sinjidk@users.noreply.github.com"
           git config --global user.name "sinjidk"
@@ -40,6 +43,9 @@ jobs:
           else
             echo "No new reference files"
           fi
+          hash="$(git rev-parse HEAD)
+          echo "$hash"
+          echo "hash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
           
   Generate-Markdown:
     needs: Initalize-References
@@ -47,6 +53,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.Initalize-References.outputs.hash }}
       - name: Perform generation
         run: |
           cd docs
