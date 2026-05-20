@@ -24,12 +24,13 @@ jobs:
           arr=${arr%,\"}
           arr+="]"
           echo $arr
+          echo $(fromJSON($arr))
 
   build_changes:
     needs: identify_changes
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        file: ${{ needs.identify_changes.outputs.files }}
+        file: ${{ fromJSON(needs.identify_changes.outputs.files) }}
     steps:
       - run: echo "${{ matrix.file }} was changed"
