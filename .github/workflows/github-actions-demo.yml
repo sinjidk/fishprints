@@ -21,7 +21,7 @@ jobs:
             echo "$file was changed"
             arr+="$file,"
           done
-          arr += "]"
+          arr+="]"
           echo $arr
           echo ${fromJson($arr)}
         env:
