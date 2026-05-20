@@ -29,6 +29,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        file: ${{ fromJSON(needs.identify_changes.outputs.files) }}
+        file: ${{ needs.identify_changes.outputs.files }}
     steps:
       - run: echo "${{ matrix.file }} was changed"
