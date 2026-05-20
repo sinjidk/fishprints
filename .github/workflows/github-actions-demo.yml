@@ -15,4 +15,4 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v6
       - id: convey
-        run: echo "modified=${{ matrix.CommitsIn.modified }}" >> "$GITHUB_OUTPUT"
+        run: echo "modified=${{ matrix.CommitsIn.id }}" >> "$GITHUB_OUTPUT"
