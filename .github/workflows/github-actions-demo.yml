@@ -22,8 +22,7 @@ jobs:
             arr+="$file\",\""
           done
           arr=${arr%,\"}
-          arr+="]"
-          echo "$arr" >> $GITHUB_OUTPUT
+          echo "arr+="]" >> $GITHUB_OUTPUT
 
   build_changes:
     needs: identify_changes
