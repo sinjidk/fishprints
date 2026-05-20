@@ -17,11 +17,11 @@ jobs:
         run: echo "changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
       - id: toJson
         run: |
-          arr="["""
+          arr="["\"
           for file in ${{ steps.changes.outputs.changed_files }}; do
-            arr+="$file"","
+            arr+="$file\",\""
           done
-          arr=${arr%,}
+          arr=${arr%,"}
           arr+="]"
           echo $arr
           echo $(fromJSON($arr))
