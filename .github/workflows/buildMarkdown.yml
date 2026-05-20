@@ -75,7 +75,7 @@ jobs:
                 fi
                 fname="${file#$dir/}"
                 dname="${fname%/reference}"
-                text="![${dname}]($(cat $file))${NL}"
+                text="![${dname}]($(cat $file | sed -e 's/ /%20/g'))${NL}"
                 md+="${text}"
                 echo "Added ${text}"
               done <<< "${refs}"
