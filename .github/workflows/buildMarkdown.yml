@@ -1,0 +1,20 @@
+name: Generate Markdown
+on: push
+jobs:
+  Initalize-References:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v6
+      - name: Perform initialization
+        run: |
+          find . -mindepth 1 -type d | while read dir; do
+            refpath="${dir}/reference"
+            if [ ! -f "${refpath}" ]; then
+              echo "${refpath} does not exist"
+              refimage="$(find $dir -mindepth 1 -type f -name '*.png' -print -quit)"
+              fname="${refimage#$dir/}"
+              echo "${fname}" > "${refpath}"
+              echo "${refpath} generated with ${fname}"
+            fi
+          done
