@@ -23,6 +23,7 @@ jobs:
           done
           arr=${arr%,\"}
           echo "arr+=\"]" >> $GITHUB_OUTPUT
+      - run: echo "${{ steps.toJson.outputs.arr }} was output?"
 
   build_changes:
     needs: identify_changes
