@@ -43,7 +43,7 @@ jobs:
           else
             echo "No new reference files"
           fi
-          hash="$(git rev-parse HEAD)
+          hash="$(git rev-parse HEAD)"
           echo "$hash"
           echo "hash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
           
