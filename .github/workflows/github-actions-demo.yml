@@ -11,8 +11,8 @@ jobs:
         uses: actions/checkout@v6
       - name: commits
         run: |
-          for commit in ${{ github.event.commits }}; do
-            echo $commit.id
-          done
+          c = ${{ github.event.commits }}
+          echo ${#c[@]}
+          echo ${c[0]}
       - name: Get list of changes
         run: echo ${{ github.event.commits.modified }}
