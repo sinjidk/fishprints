@@ -17,9 +17,13 @@ jobs:
         run: echo "changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
       - name: List changed files
         run: |
+          arr="["
           for file in ${{ steps.changes.outputs.changed_files }}; do
-              echo "$file was changed"
+              arr =+ "$file,"
           done
+          arr =+ "]"
+          echo $arr
+          echo ${fromJson($arr)}
 
   build_changes:
     needs: identify_changes
