@@ -2,14 +2,17 @@ name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: push
 jobs:
-  Explore-GitHub-Actions:
+  SelectCommits:
     strategy:
       matrix:
-        foo: ${{ github.event.commits.modified }}
+        CommitsIn: ${{ github.event.commits }}
     runs-on: ubuntu-latest
+    outputs:
+      ModifiedOut: ${{ steps.convey.outputs.modified }}
     steps:
       - name: this works right?
         run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - name: Check out repository code
         uses: actions/checkout@v6
-      - run: echo ${{ matrix.foo }}
+      - id: convey
+        run: echo "modified=${{ matrix.CommitsIn.modified }}" >> "$GITHUB_OUTPUT"
