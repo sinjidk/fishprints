@@ -19,7 +19,8 @@ jobs:
         run: |
           arr="["
           for file in ${{ steps.changes.outputs.changed_files }}; do
-              arr += "$file,"
+            echo "$file was changed"
+            arr += "$file,"
           done
           arr += "]"
           echo $arr
