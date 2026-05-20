@@ -88,5 +88,9 @@ jobs:
           git config --global user.email "170571194+sinjidk@users.noreply.github.com"
           git config --global user.name "sinjidk"
           git add .
-          git commit -m "Markdown generation"
-          git push
+          if [ ! -z "$(git status -s)" ]; then
+            git commit -m "Reference initialization"
+            git push
+          else
+            echo "No markdown changes"
+          fi
