@@ -2,8 +2,10 @@ name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: push
 jobs:
-  SelectCommits:
+  identify_changes:
     runs-on: ubuntu-latest
+    outputs:
+      files: ${{ steps.changes.outputs.changed_files }}
     steps:
       - name: this works right?
         run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -18,3 +20,12 @@ jobs:
           for file in ${{ steps.changes.outputs.changed_files }}; do
               echo "$file was changed"
           done
+
+  build_changes:
+    needs: identify_changes
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        file: ${{ needs.identify_changes.outputs.files }}
+    steps:
+      - run: echo "${{ matrix.file }} was changed"
