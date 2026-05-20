@@ -22,16 +22,16 @@ jobs:
             arr+="$file\",\""
           done
           arr=${arr%,\"}
-          arr+='"]'
+          arr+=']'
           echo "json=$arr" >> $GITHUB_OUTPUT
           
-      - run: echo "${{ steps.toJson.outputs.arr }} was output?"
+      - run: echo "${{ steps.toJson.outputs.json }} was output?"
 
   build_changes:
     needs: identify_changes
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        file: ${{ needs.identify_changes.outputs.files }}
+        file: ${{ fromJSON(needs.identify_changes.outputs.files) }}
     steps:
       - run: echo "${{ matrix.file }} was changed"
