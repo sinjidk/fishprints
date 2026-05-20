@@ -26,3 +26,50 @@ jobs:
           git add .
           git commit -m "Reference initialization"
           git push
+          
+  Generate-Markdown:
+    needs: Initalize-References
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v6
+      - name: Perform generation
+        run: |
+          cd docs
+          NL=$'\n'
+          find . -type d | while read dir; do
+            if [ -z "$(find $dir -mindepth 1 -maxdepth 1 -type d)" ]; then
+              echo "$dir empty"
+              md=""
+              files="$(find $dir -type f -name '*.png')"
+              while read file; do
+                echo "$file is file"
+                fname="${file#$dir/}"
+                fnamebare="${fname%.png}"
+                md+="![${fnamebare%_*}](${fname// /%20})${NL}"
+              done <<< "${files}"
+              echo "${md}" > "${dir}/README.md"
+            else
+              echo "$dir not empty"
+              md=""
+              refs="$(find $dir -mindepth 2 -maxdepth 2 -type f -name 'reference')"
+              while read file; do
+                if [ -z "$file" ]; then
+                  continue
+                fi
+                echo "$file is reference"
+                fname="${file#$dir/}"
+                dname="${fname%/reference}"
+                echo "$(cat $file)"
+                md+="![${dname}]($(cat $file))${NL}"
+              done <<< "${refs}"
+              echo "${md}" > "${dir}/README.md"
+            fi
+          done
+      - name: Commit changes
+        run: |  
+          git config --global user.email "170571194+sinjidk@users.noreply.github.com"
+          git config --global user.name "sinjidk"
+          git add .
+          git commit -m "Markdown generation"
+          git push
