@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v6
-      - name: Committ id
-        run: echo "${{ github.event.commits.id }}"
+      - name: Commits length
+        run: echo ${${{ github.event.commits }}}
       - name: Get list of changes
-        run: echo "${{ github.event.commits.modified }}"
+        run: echo ${{ github.event.commits.modified }}
