@@ -5,7 +5,7 @@ jobs:
   identify_changes:
     runs-on: ubuntu-latest
     outputs:
-      files: ${{ steps.changes.outputs.changed_files }}
+      files: ${{ steps.toJson.outputs.arr }}
     steps:
       - name: this works right?
         run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -15,13 +15,13 @@ jobs:
          fetch-depth: 0
       - id: changes
         run: echo "changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
-      - name: List changed files
+      - id: toJson
         run: |
           arr="["
           for file in ${{ steps.changes.outputs.changed_files }}; do
-              arr =+ "$file,"
+              arr += "$file,"
           done
-          arr =+ "]"
+          arr += "]"
           echo $arr
           echo ${fromJson($arr)}
 
