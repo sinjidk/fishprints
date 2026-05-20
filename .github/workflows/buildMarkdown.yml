@@ -24,8 +24,8 @@ jobs:
           git config --global user.email "170571194+sinjidk@users.noreply.github.com"
           git config --global user.name "sinjidk"
           git add .
-          echo "$(git status)"
-          if [ ! -z "$(git status)" ]; then
+          echo "$(git status -s)"
+          if [ ! -z "$(git status -s)" ]; then
             git commit -m "Reference initialization"
             git push
           else
