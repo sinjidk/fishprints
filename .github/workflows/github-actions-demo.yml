@@ -20,9 +20,10 @@ jobs:
           arr=()
           for i in "$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})"
           do
+            echo $i
             arr+=($i)
           done
-          echo $arr
+        
       - id: convey
         run: |
           declare -a modified
